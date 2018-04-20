@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>bsniper</contextName>
+    <property name="charset" value="utf8" />
+    <!--12 months-->
+    <property name="maxHistory" value="12"/>
+    <property name="maxFileSize" value="10MB"/>
+    <!--default log path-->
+    <property name="logPath" value="../BsniperLog/" />
+
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <!--pattern property-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-60.60logger{59}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56}.%M - %msg%n" />
+
+    <!--console log-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${charset}</charset>
+        </encoder>
+    </appender>
+
+    <!--backup-->
+    <appender name="ARCHIVED" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}all.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+            <charset>${charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}spilt/log_%d{dd-MM-yyyy}_%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--stats warn log-->
+    <appender name="STATS_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}%d{yyyy/MM/dd}/warn_%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--stats error log-->
+    <appender name="STATS_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${charset}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}%d{yyyy/MM/dd}/error_%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--other logger like jdbc pool-->
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ARCHIVED" />
+        <appender-ref ref="STATS_WARN" />
+        <appender-ref ref="STATS_ERROR" />
+    </root>
+
+    <!--for dev-->
+    <springProfile name="test,dev,local">
+        <logger name="com.car.union" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ARCHIVED" />
+            <appender-ref ref="STATS_WARN" />
+            <appender-ref ref="STATS_ERROR" />
+        </logger>
+    </springProfile>
+
+    <!--for prod-->
+    <springProfile name="prod">
+        <logger name="com.car.union" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ARCHIVED" />
+            <appender-ref ref="STATS_WARN" />
+            <appender-ref ref="STATS_ERROR" />
+        </logger>
+    </springProfile>
+
+</configuration>
