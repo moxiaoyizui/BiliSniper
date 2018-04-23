@@ -3,7 +3,6 @@ package com.yang.bilisniper.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
 
 /**
  * Created by ChunqiYang (yangchunqi@guazi.com)
@@ -28,7 +27,7 @@ public class Member {
 
     private Long regtime;
 
-    private Date birthday;
+    private String birthday;
 
     private String place;
 
@@ -122,11 +121,11 @@ public class Member {
         this.regtime = regtime;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -240,5 +239,34 @@ public class Member {
 
     public void setFollowing(Integer following) {
         this.following = following;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "mid=" + mid +
+                ", name='" + name + '\'' +
+                ", approve=" + approve +
+                ", sex='" + sex + '\'' +
+                ", rank=" + rank +
+                ", face='" + face + '\'' +
+                ", DisplayRank=" + DisplayRank +
+                ", regtime=" + regtime +
+                ", birthday=" + birthday +
+                ", place='" + place + '\'' +
+                ", description='" + description + '\'' +
+                ", article='" + article + '\'' +
+                ", sign='" + sign + '\'' +
+                ", toutu='" + toutu + '\'' +
+                ", toutuId=" + toutuId +
+                ", theme='" + theme + '\'' +
+                ", theme_preview='" + theme_preview + '\'' +
+                ", coins=" + coins +
+                ", im9_sign='" + im9_sign + '\'' +
+                ", playNum=" + playNum +
+                ", fans_badge=" + fans_badge +
+                ", follwer=" + follwer +
+                ", following=" + following +
+                '}';
     }
 }
