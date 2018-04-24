@@ -45,7 +45,7 @@ public class ApiServiceImplTest {
     @Test
     public void reqByPost() {
         MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<>();
-        paramMap.add("mid", "9717562");
+        paramMap.add("mid", "111999199");
 
         Map<String, String> headerParam = new HashMap<>();
         headerParam.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
@@ -56,6 +56,8 @@ public class ApiServiceImplTest {
         headerParam.put("Referer", "http://space.bilibili.com/10513807/");
 
         String res = apiService.reqByPost(url, MediaType.APPLICATION_FORM_URLENCODED, headerParam, paramMap, String.class);
+
+        logger.warn(res);
 
         Member member = JSON.parseObject(JSON.parseObject(res).get("data").toString(), Member.class);
 

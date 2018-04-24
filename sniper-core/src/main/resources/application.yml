@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  output:
+    ansi:
+      enabled: always
+
+server:
+  port: 8080
+
+
