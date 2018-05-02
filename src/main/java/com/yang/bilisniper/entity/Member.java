@@ -3,11 +3,13 @@ package com.yang.bilisniper.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by ChunqiYang (yangchunqi@guazi.com)
  */
 @Entity
+@Table(name = "member")
 public class Member {
     @Id
     private Long mid;
@@ -15,6 +17,7 @@ public class Member {
     @Column
     private String name;
 
+    @Column(columnDefinition = "BIT(1) DEFAULT 0")
     private boolean approve;
 
     private String sex;
@@ -51,6 +54,7 @@ public class Member {
 
     private Long playNum;
 
+    @Column(columnDefinition = "BIT(1) DEFAULT 0")
     private boolean fans_badge; //是否开启粉丝专属勋章
 
     private Integer follwer;    //粉丝数

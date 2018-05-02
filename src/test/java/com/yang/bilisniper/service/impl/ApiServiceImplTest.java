@@ -45,7 +45,7 @@ public class ApiServiceImplTest {
     @Test
     public void reqByPost() {
         MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<>();
-        paramMap.add("mid", "111999199");
+        paramMap.add("mid", "1");
 
         Map<String, String> headerParam = new HashMap<>();
         headerParam.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
