@@ -22,6 +22,9 @@ public class RedisTestsJob {
     public void redisSet() {
         //redisTemplate.opsForList().leftPush("springBootTest", "test");
         //System.out.println(redisTemplate.opsForList().leftPop("springBootTest"));
-        redisTemplate.opsForValue().append("test1", "test");
+        //redisTemplate.opsForValue().append("test1", "test");
+
+        Integer mid = (Integer) redisTemplate.opsForValue().get("last");
+        System.out.println(mid);
     }
 }

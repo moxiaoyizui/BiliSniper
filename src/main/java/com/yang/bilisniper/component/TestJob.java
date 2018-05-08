@@ -3,7 +3,6 @@ package com.yang.bilisniper.component;
 import com.yang.bilisniper.dao.MemberReposity;
 import com.yang.bilisniper.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,7 +14,7 @@ public class TestJob {
     @Autowired
     private MemberReposity memberReposity;
 
-    @Scheduled(cron = "0/10 * * * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     public void testJob() {
         System.out.println("start insert");
 

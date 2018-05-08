@@ -24,8 +24,8 @@ public class DataSourceConfig {
     private static DataSource createDataSource(final String dbsName) {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/bsniper?" +
-                "autoReconnect=true&useUnicode=true&characterEncoding=utf-8&useSSL=false";
+        //String url = "jdbc:mysql://45.32.249.251:3306/bsniper?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&useSSL=false";
+        String url = "jdbc:mysql://localhost:3306/bsniper?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&useSSL=false";
         dataSource.setUrl(url);
         dataSource.setUsername("yangchunqi");
         dataSource.setPassword("langshaoup916");
@@ -53,7 +53,7 @@ public class DataSourceConfig {
     private TableRuleConfiguration getMemberTableRule() {
         TableRuleConfiguration memberTableRule = new TableRuleConfiguration();
         memberTableRule.setLogicTable("member");
-        memberTableRule.setActualDataNodes("bsniper.member_${0..1}");
+        memberTableRule.setActualDataNodes("bsniper.member_${0..10}");
         memberTableRule.setKeyGeneratorColumnName("mid");
 
         return memberTableRule;

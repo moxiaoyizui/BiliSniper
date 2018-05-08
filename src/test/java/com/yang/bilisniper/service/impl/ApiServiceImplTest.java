@@ -44,25 +44,32 @@ public class ApiServiceImplTest {
 
     @Test
     public void reqByPost() {
-        MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<>();
-        paramMap.add("mid", "1");
 
-        Map<String, String> headerParam = new HashMap<>();
-        headerParam.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
-        headerParam.put("Host", "space.bilibili.com");
-        headerParam.put("Accept", "application/json, text/plain, */*");
-        headerParam.put("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
-        headerParam.put("X-Requested-With", "XMLHttpRequest");
-        headerParam.put("Referer", "http://space.bilibili.com/10513807/");
+        while (true) {
+            MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<>();
+            paramMap.add("mid", "1");
 
-        String res = apiService.reqByPost(url, MediaType.APPLICATION_FORM_URLENCODED, headerParam, paramMap, String.class);
+            Map<String, String> headerParam = new HashMap<>();
+            headerParam.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+            headerParam.put("Host", "space.bilibili.com");
+            headerParam.put("Accept", "application/json, text/plain, */*");
+            headerParam.put("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+            headerParam.put("X-Requested-With", "XMLHttpRequest");
+            headerParam.put("Referer", "http://space.bilibili.com/10513807/");
 
-        logger.warn(res);
+            String res = apiService.reqByPost(url, MediaType.APPLICATION_FORM_URLENCODED, headerParam, paramMap, String.class);
 
-        Member member = JSON.parseObject(JSON.parseObject(res).get("data").toString(), Member.class);
+            logger.warn(res);
 
-        System.out.println(res);
+            try {
+                Member member = JSON.parseObject(JSON.parseObject(res).get("data").toString(), Member.class);
 
-        logger.warn("爬取用户信息结果：" + member.toString());
+                System.out.println(res);
+
+                logger.warn("爬取用户信息结果：" + member.toString());
+            } catch (Exception e) {
+
+            }
+        }
     }
 }

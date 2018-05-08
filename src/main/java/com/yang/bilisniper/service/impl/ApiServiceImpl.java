@@ -1,5 +1,6 @@
 package com.yang.bilisniper.service.impl;
 
+import com.yang.bilisniper.config.RestTemplateConfig;
 import com.yang.bilisniper.service.ApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +21,19 @@ import java.util.Map;
 @Service
 public class ApiServiceImpl implements ApiService {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(ApiServiceImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
+
+    //@Autowired
+    //private RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
-
+    private RestTemplateConfig restTemplateConfig;
 
     @Override
     public <T> T reqByPost(String url, MediaType contentType, Map<String, String> headerParams,
                            MultiValueMap<String, Object> paramMap, Class<T> entityClass) {
+        RestTemplate restTemplate = restTemplateConfig.buildProxyRestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(contentType);
 
@@ -37,8 +42,10 @@ public class ApiServiceImpl implements ApiService {
         }
 
         final HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(paramMap, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class, paramMap);
+        //ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class, paramMap);
+        ResponseEntity<T> response = restTemplate.postForEntity(url, httpEntity, entityClass, paramMap);
 
-        return (T) response.getBody();
+        return response.getBody();
     }
+
 }
