@@ -12,7 +12,7 @@ public class ModuloShardingTableAlgorithm implements PreciseShardingAlgorithm<Lo
     @Override
     public String doSharding(Collection<String> tableNames, PreciseShardingValue<Long> shardingValues) {
         for (String each : tableNames) {
-            if (each.endsWith(shardingValues.getValue() % 2 + "")) {
+            if (each.endsWith(shardingValues.getValue() % 11 + "")) {
                 return each;
             }
         }
