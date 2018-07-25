@@ -40,7 +40,7 @@ public class GetInfoCreateJob {
         while (true) {
             mid = Long.valueOf((String) redisTemplate.opsForValue().get(RedisConstants.KEY_LASTMID)) + 1;
             getInfoThreadPool.submit(new GrabMemberThread(mid));
-            redisTemplate.opsForValue().append(RedisConstants.KEY_LASTMID, mid + "");
+            redisTemplate.opsForValue().set(RedisConstants.KEY_LASTMID, mid + "");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
