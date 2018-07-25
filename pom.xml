@@ -6,7 +6,7 @@
 	<groupId>com.yang</groupId>
 	<artifactId>bilisniper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+    <packaging>jar</packaging>
 
 	<name>bilisniper</name>
 	<description>Get All Bilibili Info</description>

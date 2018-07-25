@@ -3,6 +3,7 @@ package com.yang.bilisniper.component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -18,13 +19,17 @@ public class RedisTestsJob {
     @Resource(name = "stringRedisTemplate")
     private RedisTemplate redisTemplate;
 
-    //@Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void redisSet() {
         //redisTemplate.opsForList().leftPush("springBootTest", "test");
         //System.out.println(redisTemplate.opsForList().leftPop("springBootTest"));
         //redisTemplate.opsForValue().append("test1", "test");
+        logger.warn("start redis===============");
+
 
         Integer mid = (Integer) redisTemplate.opsForValue().get("last");
         System.out.println(mid);
+
+        logger.warn("end redis===============");
     }
 }
